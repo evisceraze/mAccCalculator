@@ -1,0 +1,166 @@
+﻿<html><head><title>Calculator for Magician's Accuracy</title></head><body>
+
+<script type="text/javascript">
+
+function calc(form) {
+// variables
+ var minAcc = 0;
+ var minAcc2= 0;
+ var maxAcc = 0;
+ var curAcc = 0;
+ var hitRate= 0;
+
+ var cLvl = eval(form.cLvl.value);
+ var cInt = eval(form.cInt.value);
+ var cLuk = eval(form.cLuk.value);
+ var mLvl = eval(form.mLvl.value);
+ var mEva = eval(form.mEva.value);
+ var D = mLvl-cLvl;
+
+// level difference is non-negative
+ if (D<0) D=0;
+
+// calculate accuracy
+ curAcc=( Math.floor(cInt/10) + Math.floor(cLuk/10) );
+ maxAcc=Math.floor((mEva+1)*(1+0.04*D));
+ minAcc=Math.round(0.41*maxAcc);
+ hitRate=-0.7011618132*Math.pow(( (curAcc-minAcc+1)/(maxAcc-minAcc+1) ),2)+1.702139835*( (curAcc-minAcc+1)/(maxAcc-minAcc+1) )
+ hitRate=hitRate*100
+ if (curAcc<minAcc) hitRate=0
+ if (curAcc>=maxAcc) hitRate=100
+
+ form.curAcc.value=curAcc;
+ form.maxAcc.value=maxAcc;
+ form.minAcc.value=minAcc;
+ form.hitRate.value=hitRate;
+}
+
+function r(form) {
+ form.mLvl.value="";
+ form.mEva.value="";
+
+ form.cLvl.value="";
+ form.cInt.value="";
+ form.cLuk.value="";
+
+ form.curAcc.value="";
+ form.maxAcc.value="";
+ form.minAcc.value="";
+ form.hitRate.value="";
+}
+</script>
+
+<center>
+Calculator for Magical Accuracy
+<form>
+<table border="4">
+
+ <tbody><tr>
+  <td colspan="2" bgcolor="#EEEEEE">
+   Monster's stats
+  </td>
+ </tr>
+ <tr>
+  <td>
+   Level
+  </td>
+  <td>
+   <input name="mLvl" size="4" type="text">
+  </td>
+ </tr>
+
+ <tr>
+  <td>
+   Avoid/Evade
+  </td>
+  <td>
+   <input name="mEva" size="4" type="text">
+  </td>
+ </tr>
+
+ <tr>
+  <td colspan="2" bgcolor="#EEEEEE">
+   Character's stats
+  </td>
+ </tr>
+
+ <tr>
+  <td>
+   Level
+  </td>
+  <td>
+   <input name="cLvl" size="4" type="text">
+  </td>
+ </tr>
+
+ <tr>
+  <td>
+   INT
+  </td>
+  <td>
+   <input name="cInt" size="4" type="text">
+  </td>
+ </tr>
+
+ <tr>
+  <td>
+   LUK
+  </td>
+  <td>
+   <input name="cLuk" size="4" type="text">
+  </td>
+ </tr>
+
+ <tr>
+  <td colspan="2" bgcolor="#EEEEEE">
+   Calculation
+  </td>
+ </tr>
+
+ <tr>
+  <td>
+   Current accuracy
+  </td>
+  <td>
+   <input name="curAcc" size="4" type="text" disabled>
+  </td>
+ </tr>
+
+ <tr>
+  <td>
+   Accuracy needed for 100%
+  </td>
+  <td>
+   <input name="maxAcc" size="4" type="text" disabled>
+  </td>
+ </tr>
+
+ <tr>
+  <td>
+   Accuracy needed for >1%
+  </td>
+  <td>
+   <input name="minAcc" size="4" type="text" disabled>
+  </td>
+ </tr>
+
+ <tr>
+  <td>
+   Hit Rate % <font color=red>(tentative)</font>
+  </td>
+  <td>
+   <input name="hitRate" size="4" type="text" disabled>
+  </td>
+ </tr>
+
+ <tr>
+  <td colspan="2" bgcolor="#EEEEEE">
+   <center>
+   <input value="Calculate" onclick="calc(this.form)" type="button"><input value="Reset" onclick="r(this.form)" type="button">
+   </center>
+  </td>
+ </tr>
+</tbody></table>
+</form><font size=1>Credit for 100% accuracy goes <br>to 安心 from <a href=http://ms-jinrou.seesaa.net/article/17096944.html>「汝は人狼なりや？」</a> <br>(via <a href=http://zaizen.aki.gs/hidokuma.html#4>「メイプル総回診」</a>).</font>
+</center>
+</body></html>
